@@ -1,9 +1,8 @@
 ## Files Flattener
 
-This repository contains implementations for recursively reading all files in a specified directory and outputting their filenames and contents to a specified output file. [TODO](#TODO)
+This repository contains implementations for recursively reading all files in a specified directory and outputting their filenames and contents to a specified output file.
 
 - [Getting Started](#getting-started)
-
   - [Python](#python)
 
 ## Why do I need this?
@@ -15,25 +14,31 @@ Imagine you are working on a project and need to share the project structure and
 Assume you have the following directory structure:
 
 ```
+
 |
 |--folder1
-|   |--file1.txt
-|   |--file2.txt
+| |--file1.txt
+| |--file2.txt
 |--file3.txt
+
 ```
 
 And you have an `.ignore` file in the root directory with the following content:
 
 ```
+
 folder1/file2.txt
 
 # Exclude itself
+
 .ignore
+
 ```
 
 Running the implementation will process the files, ignoring `folder1/file2.txt` and `.ignore` itself as specified in the `.ignore` file. The output file will contain the contents of the remaining files in the following format:
 
 ```
+
 **folder1/file1.txt:**
 
 [...file1.txt's content...]
@@ -41,6 +46,7 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 **file3.txt:**
 
 [...file3.txt's content...]
+
 ```
 
 ## Getting Started
@@ -66,15 +72,14 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 
 - `<directory>`: The path of the directory containing the files to be flattened.
 - `<output_file>`: The path of the output file where the contents of the files will be written.
-- `[<ignore_file>]`: (Optional) The path to a file containing patterns of files to ignore. If not provided, a `.ignore` file in the specified directory will be used.
+- `[<ignore_file>]`: (Optional) The path to a file containing patterns of files to ignore. If not provided, the script will look for a '.ignore' file in the specified directory. If the '.ignore' file is not found, no files will be ignored.
 
 ## TODO
 
 - [ ] Add dry-run mode to preview the output before writing to the file.
 - [ ] Make a Node library version.
 - [ ] Make a web app based on Vue3.
-
-- [x] Use .ignore to exclude or include files for flattening.
+- [x] Use `.ignore` to exclude or include files for flattening.
 
 ## License
 

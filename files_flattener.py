@@ -2,25 +2,47 @@ import os
 import sys
 import pathspec
 
-USAGE = "Usage: python files_flattener.py <directory> <output_file> [<ignore_file>]"
+USAGE = """
+Usage: python files_flattener.py <directory> <output_file> [<ignore_file>]
+
+Parameters:
+  <directory>    : The path of the directory containing the files to be flattened.
+  <output_file>  : The path of the output file where the contents of the files will be written.
+  [<ignore_file>]: (Optional) The path to a file containing patterns of files to ignore.
+                   If not provided, the script will look for a '.ignore' file in the specified directory.
+                   If the '.ignore' file is not found, no files will be ignored.
+"""
 
 
-def load_ignore_patterns(ignore_file):
+def get_spec(ignore_file):
     with open(ignore_file, "r", encoding="utf-8") as f:
-        patterns = f.read().splitlines()
-    return patterns
+        ignore_patterns = f.read().splitlines()
+    return pathspec.PathSpec.from_lines(
+        pathspec.patterns.GitWildMatchPattern, ignore_patterns
+    )
 
 
-def list_files(directory, ignore_file):
+def list_files(directory, ignore_file=None):
     files_list = []
-    if ignore_file:
-        ignore_patterns = load_ignore_patterns(ignore_file)
-        spec = pathspec.PathSpec.from_lines(
-            pathspec.patterns.GitWildMatchPattern, ignore_patterns
-        )
-    else:
-        spec = None
+    spec = None
 
+    if ignore_file:
+        # If the ignore file not exists, raise an error
+        if not os.path.exists(ignore_file):
+            print(f"Ignore file {ignore_file} does not exist.")
+            print(USAGE)
+            sys.exit(1)
+
+        # Ignore file is valid, get the patterns
+        spec = get_spec(ignore_file)
+
+    elif os.path.exists(os.path.join(directory, ".ignore")):
+        # If .ignore file is found in the directory and valid, get the patterns
+        spec = get_spec(os.path.join(directory, ".ignore"))
+
+    # Else, no ignore file is found, no files will be ignored
+
+    # Walk through the directory and list all files
     for root, _, files in os.walk(directory):
         for file in files:
             file_path = os.path.join(root, file)
@@ -49,19 +71,10 @@ if __name__ == "__main__":
 
     directory = sys.argv[1]
     output_file = sys.argv[2]
-    ignore_file = (
-        sys.argv[3] if len(sys.argv) > 3 else os.path.join(directory, ".ignore")
-    )
-
-    if not os.path.exists(ignore_file):
-        print(f"Ignore file {ignore_file} does not exist.")
-        print("Specify a valid ignore file or create a .ignore file in the directory.")
-        print(USAGE)
-        sys.exit(1)
+    ignore_file = sys.argv[3] if len(sys.argv) > 3 else None  # Optional
 
     files_list = list_files(directory, ignore_file)
 
-    print("Files to be processed:")
     for file in files_list:
         print(file)
 
