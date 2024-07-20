@@ -1,6 +1,7 @@
 import os
 import sys
 import pathspec
+from concurrent.futures import ThreadPoolExecutor
 
 USAGE = """
 Usage: python files_flattener.py <directory> <output_file> [<ignore_file>]
@@ -35,7 +36,6 @@ def list_files(directory, ignore_file=None):
 
         # Ignore file is valid, get the patterns
         spec = get_spec(ignore_file)
-
     elif os.path.exists(os.path.join(directory, ".ignore")):
         # If .ignore file is found in the directory and valid, get the patterns
         spec = get_spec(os.path.join(directory, ".ignore"))
@@ -54,14 +54,30 @@ def list_files(directory, ignore_file=None):
     return files_list
 
 
+def read_file_content(file_path):
+    with open(file_path, "r", encoding="utf-8") as infile:
+        return infile.read()
+
+
 def write_files_to_output(directory, output_file, files_list):
     with open(output_file, "w", encoding="utf-8") as outfile:
-        for relative_path in files_list:
-            file_path = os.path.join(directory, relative_path)
-            with open(file_path, "r", encoding="utf-8") as infile:
-                outfile.write(f"**{relative_path}:**\n\n")
-                outfile.write(infile.read())
-                outfile.write("\n\n")
+        with ThreadPoolExecutor() as executor:
+            future_to_file = {
+                executor.submit(
+                    read_file_content, os.path.join(directory, relative_path)
+                ): relative_path
+                for relative_path in files_list
+            }
+
+            for future in future_to_file:
+                relative_path = future_to_file[future]
+                try:
+                    content = future.result()
+                    outfile.write(f"**{relative_path}:**\n\n")
+                    outfile.write(content)
+                    outfile.write("\n\n")
+                except Exception as exc:
+                    print(f"Error reading file {relative_path}: {exc}")
 
 
 if __name__ == "__main__":
