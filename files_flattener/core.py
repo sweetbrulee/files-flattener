@@ -2,6 +2,7 @@ import os
 import sys
 import pathspec
 from concurrent.futures import ThreadPoolExecutor
+from .common import logger
 
 USAGE = """
 Usage: flt <directory> <output_file> [<ignore_file>]
@@ -30,8 +31,8 @@ def list_files(directory, ignore_file=None):
     if ignore_file:
         # If the ignore file not exists, raise an error
         if not os.path.exists(ignore_file):
-            print(f"Ignore file {ignore_file} does not exist.")
-            print(USAGE)
+            logger.error(f"Ignore file {ignore_file} does not exist.")
+            logger.info(USAGE)
             sys.exit(1)
 
         # Ignore file is valid, get the patterns
@@ -77,4 +78,4 @@ def write_files_to_output(directory, output_file, files_list):
                     outfile.write(content)
                     outfile.write("\n\n")
                 except Exception as exc:
-                    print(f"Error reading file {relative_path}: {exc}")
+                    logger.critical(f"Error reading file {relative_path}: {exc}")

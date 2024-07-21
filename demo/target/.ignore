@@ -1,0 +1,4 @@
+folder1/file2.txt
+
+# Exclude itself
+.ignore

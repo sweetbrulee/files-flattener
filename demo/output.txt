@@ -1,0 +1,8 @@
+**file3.txt:**
+
+[...file3.txt's content...]
+
+**folder1/file1.txt:**
+
+[...file1.txt's content...]
+

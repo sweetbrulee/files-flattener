@@ -1,10 +1,11 @@
 import sys
 from .core import list_files, write_files_to_output, USAGE
+from .common import logger
 
 
 def main():
     if len(sys.argv) < 3:
-        print(USAGE)
+        logger.info(USAGE)
         sys.exit(1)
 
     directory = sys.argv[1]
@@ -14,10 +15,10 @@ def main():
     files_list = list_files(directory, ignore_file)
 
     for file in files_list:
-        print(file)
+        logger.info(file)
 
     write_files_to_output(directory, output_file, files_list)
-    print(f"All files have been successfully written to {output_file}")
+    logger.debug(f"All files have been successfully written to {output_file}")
 
 
 if __name__ == "__main__":

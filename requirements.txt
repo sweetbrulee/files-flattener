@@ -1,4 +1,5 @@
 pathspec
+colorlog
 
 # For development
 twine

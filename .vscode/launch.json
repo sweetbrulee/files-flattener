@@ -10,6 +10,16 @@
       "console": "integratedTerminal",
       "env": {},
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Debug: CLI (demo test)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "files_flattener.cli",
+      "args": ["demo/target", "demo/output.txt"],
+      "console": "integratedTerminal",
+      "env": {},
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
