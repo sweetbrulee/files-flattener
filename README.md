@@ -91,8 +91,7 @@ pip install wheel
 Generate the distribution files:
 
 ```sh
-rm -rf build/ dist/
-python setup.py sdist bdist_wheel
+. scripts/build.sh
 ```
 
 #### Publish the package to PyPI
@@ -106,7 +105,7 @@ pip install twine
 Upload the distribution files to PyPI:
 
 ```sh
-twine upload dist/*
+. scripts/upload.sh
 ```
 
 ## TODO
