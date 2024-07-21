@@ -18,7 +18,7 @@ def main():
         logger.info(file)
 
     write_files_to_output(handler, output_file, files_list)
-    logger.debug(f"All files have been successfully written to {output_file}")
+    logger.success(f"All files have been successfully written to {output_file}")
 
 
 if __name__ == "__main__":

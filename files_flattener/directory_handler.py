@@ -19,7 +19,7 @@ class LocalDirectoryHandler(DirectoryHandler):
 class RemoteRepositoryHandler(DirectoryHandler):
     def prepare(self):
         self.local_directory = tempfile.mkdtemp()
-        logger.info(
+        logger.warning(
             f"Cloning repository from {self.identifier} to {self.local_directory}"
         )
         try:

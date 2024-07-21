@@ -92,9 +92,6 @@ def write_files_to_output(
                         outfile.write("\n\n")
                     except Exception as exc:
                         logger.critical(f"Error reading file {relative_path}: {exc}")
-                        # Delete output file and exit
-                        os.remove(output_file)
-                        sys.exit(1)
     finally:
         # Clean up the temporary directory if it was used
         if isinstance(handler, RemoteRepositoryHandler):
