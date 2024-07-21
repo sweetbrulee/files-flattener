@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: CLI",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "files_flattener.cli",
+      "args": "${command:pickArgs}",
+      "console": "integratedTerminal",
+      "env": {},
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
