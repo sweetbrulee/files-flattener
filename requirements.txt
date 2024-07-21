@@ -1,5 +1,6 @@
 pathspec
 colorlog
+GitPython
 
 # For development
 twine

@@ -59,12 +59,10 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 3. Run the command:
 
    ```sh
-   flt <directory> <output_file> [<ignore_file>]
+   flt
    ```
 
-   - `<directory>`: The path of the directory containing the files to be flattened.
-   - `<output_file>`: The path of the output file where the contents of the files will be written.
-   - `[<ignore_file>]`: (Optional) The path to a file containing patterns of files to ignore. If not provided, the script will look for a '.ignore' file in the specified directory. If the '.ignore' file is not found, no files will be ignored.
+   To see the help message.
 
 ### Development
 

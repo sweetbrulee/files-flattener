@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name="files_flattener",
-    version="0.1.2",
+    version="0.2.0",
     packages=find_packages(),
-    install_requires=["pathspec", "colorlog"],
+    install_requires=["pathspec", "colorlog", "GitPython"],
     entry_points={
         "console_scripts": [
             "flt = files_flattener.cli:main",

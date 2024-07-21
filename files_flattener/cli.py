@@ -12,12 +12,12 @@ def main():
     output_file = sys.argv[2]
     ignore_file = sys.argv[3] if len(sys.argv) > 3 else None  # Optional
 
-    files_list = list_files(directory, ignore_file)
+    files_list, handler = list_files(directory, ignore_file)
 
     for file in files_list:
         logger.info(file)
 
-    write_files_to_output(directory, output_file, files_list)
+    write_files_to_output(handler, output_file, files_list)
     logger.debug(f"All files have been successfully written to {output_file}")
 
 
