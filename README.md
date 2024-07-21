@@ -74,6 +74,12 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 pip install -r requirements.txt
 ```
 
+#### Run the script locally
+
+```sh
+python -m files_flattener.cli <directory> <output_file> [<ignore_file>]
+```
+
 #### Build the package
 
 Ensure `wheel` is installed:
