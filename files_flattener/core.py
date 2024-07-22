@@ -1,24 +1,13 @@
 import os
-import sys
 import pathspec
 from concurrent.futures import ThreadPoolExecutor
+
 from .directory_handler import (
     DirectoryHandlerFactory,
     LocalDirectoryHandler,
     RemoteRepositoryHandler,
 )
-from .common import logger
-
-USAGE = """
-Usage: flt <identifier> <output_file> [<ignore_file>]
-
-Parameters:
-  <identifier>   : The path of the local directory or the URL of the remote repository containing the files to be flattened.
-  <output_file>  : The path of the output file where the contents of the files will be written.
-  [<ignore_file>]: (Optional) The path to a file containing patterns of files to ignore.
-                   If not provided, the script will look for a '.ignore' file in the specified directory.
-                   If the '.ignore' file is not found, no files will be ignored.
-"""
+from .common import logger, print_usage
 
 
 def get_spec(ignore_file):
@@ -29,8 +18,8 @@ def get_spec(ignore_file):
     )
 
 
-def list_files(directory, ignore_file=None):
-    handler = DirectoryHandlerFactory.get_handler(directory)
+def list_files(identifier, ignore_file=None):
+    handler = DirectoryHandlerFactory.get_handler(identifier)
     handler.prepare()
 
     files_list = []
@@ -40,8 +29,8 @@ def list_files(directory, ignore_file=None):
         # If the ignore file not exists, raise an error
         if not os.path.exists(ignore_file):
             logger.error(f"Ignore file {ignore_file} does not exist.")
-            logger.info(USAGE)
-            sys.exit(1)
+            print_usage()
+            raise FileNotFoundError(f"Ignore file {ignore_file} does not exist.")
 
         # Ignore file is valid, get the patterns
         spec = get_spec(ignore_file)
