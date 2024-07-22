@@ -108,8 +108,9 @@ Upload the distribution files to PyPI:
 
 ## TODO
 
+- [ ] refactor: Use click package to implement the CLI.
 - [ ] Add dry-run mode to preview the output before writing to the file.
-- [ ] Make a web app based on Vue3.
+
 - [x] Use `.ignore` to exclude or include files for flattening.
 
 ## License
