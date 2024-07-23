@@ -2,7 +2,7 @@ import os
 import pathspec
 from concurrent.futures import ThreadPoolExecutor
 
-from .directory_handler import (
+from .identifier_handler import (
     DirectoryHandlerFactory,
     LocalDirectoryHandler,
     RemoteRepositoryHandler,

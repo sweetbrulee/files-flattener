@@ -78,6 +78,12 @@ pip install -r requirements.txt
 python -m files_flattener.cli <directory> <output_file> [<ignore_file>]
 ```
 
+#### Run the tests
+
+```sh
+pytest tests/
+```
+
 #### Build the package
 
 Ensure `wheel` is installed:
@@ -108,10 +114,9 @@ Upload the distribution files to PyPI:
 
 ## TODO
 
+- [ ] feat: Add support for spcifying the git repository to clone and flatten.
 - [ ] refactor: Use click package to implement the CLI.
-- [ ] Add dry-run mode to preview the output before writing to the file.
-
-- [x] Use `.ignore` to exclude or include files for flattening.
+- [ ] feat: Add dry-run mode to preview the output before writing to the file.
 
 ## License
 

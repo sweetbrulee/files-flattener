@@ -3,7 +3,7 @@ from git import Repo
 from .common import logger
 
 
-class DirectoryHandler:
+class IdentifierHandler:
     def __init__(self, identifier):
         self.identifier = identifier
 
@@ -11,12 +11,12 @@ class DirectoryHandler:
         raise NotImplementedError
 
 
-class LocalDirectoryHandler(DirectoryHandler):
+class LocalDirectoryHandler(IdentifierHandler):
     def prepare(self):
         self.local_directory = self.identifier
 
 
-class RemoteRepositoryHandler(DirectoryHandler):
+class RemoteRepositoryHandler(IdentifierHandler):
     def prepare(self):
         self.local_directory = tempfile.mkdtemp()
         logger.warning(

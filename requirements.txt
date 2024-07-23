@@ -3,5 +3,6 @@ colorlog
 GitPython
 
 # For development
+pytest
 twine
 wheel
