@@ -114,10 +114,9 @@ Upload the distribution files to PyPI:
 
 ## TODO
 
-- [ ] feat: Add support for spcifying the git repository to clone and flatten.
 - [ ] refactor: Use click package to implement the CLI.
-- [ ] feat: Add dry-run mode to preview the output before writing to the file.
-
+- [ ] feat: Add --dry-run mode to preview the output before writing to the file.
+- [ ] feat: Add --skip="xx;xx;..." option to skip file types e.g. undecoded files (undecoded), image files (img), css, markdown (md), json, yaml (yml). Use a composable class object to dispach file types. 
 ## License
 
 This project is licensed under the MIT License.
