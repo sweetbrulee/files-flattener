@@ -72,10 +72,10 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 pip install -r requirements.txt
 ```
 
-#### Run the script locally
+#### Run the CLI locally
 
 ```sh
-python -m files_flattener.cli <directory> <output_file> [<ignore_file>]
+python -m files_flattener.cli
 ```
 
 #### Run the tests
