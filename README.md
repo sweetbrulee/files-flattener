@@ -59,7 +59,7 @@ Running the implementation will process the files, ignoring `folder1/file2.txt` 
 3. Run the command:
 
    ```sh
-   flt
+   flt --help
    ```
 
    To see the help message.
@@ -114,9 +114,39 @@ Upload the distribution files to PyPI:
 
 ## TODO
 
+### 0.2
+
 - [ ] refactor: Use click package to implement the CLI.
 - [ ] feat: Add --dry-run mode to preview the output before writing to the file.
-- [ ] feat: Add --skip="xx;xx;..." option to skip file types e.g. undecoded files (undecoded), image files (img), css, markdown (md), json, yaml (yml), .git folder (git). Use a composable class object to dispach file types. 
+- [ ] feat: Use pipeline to output the content instead of typing output file path.
+
+### 0.3
+
+- [ ] feat: Add --file-type="xx;xx;..." options to include or exclude file types. For the filename extension, use the dot prefix e.g. include python files (.py), exclude markdown files (.md). Use a composable class object to dispach file types.
+- [ ] feat: Undecoded files will be automatically skipped.
+
+### 0.4
+
+- [ ] feat: Undecoded files will be automatically skipped. If user have specific decoding provider of the files, use `--config=<config json file path>`
+
+  - `config.json` example:
+
+  ```json
+  {
+    [...]
+    "decoder": [
+      {
+        "name": "PNG decoding method", // optional
+        "fileType": ".png",
+        "cwd": "...", // context
+        "cmd": "png-decoder ${file} --only-metadata"
+      },
+      [...]
+    ],
+    [...]
+  }
+  ```
+
 ## License
 
 This project is licensed under the MIT License.
